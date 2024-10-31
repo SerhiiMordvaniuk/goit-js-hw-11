@@ -3,9 +3,9 @@
     margin-bottom: 32px;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
-    left: 50%;
-    transform: translateX(-18%);
+    display: flex;
+    justify-content: center;
+    
 
 }
 
@@ -16,7 +16,8 @@
     padding: 0;
     outline: none;
     border: 1px solid #808080;
-    padding: 8px auto 8px 16px
+    padding-left: 16px;
+    background-color: transparent;
 }
 
 .input:hover,
@@ -58,6 +59,8 @@ width: 360px;
 display: flex;
 flex-direction: column;
 border: 1px solid #808080;
+border-radius: 8px;
+overflow: hidden;
 }
 
 .galerry-img {
@@ -71,18 +74,11 @@ border: 1px solid #808080;
     display: flex;
 }
 
-.gallery-txt {
-font-weight: 600;
-    font-size: 12px;
-    line-height: 133%;
-    letter-spacing: 0.04em;
-    color: #2e2f42;
-}
 
 .galerry-txt {
-font-weight: 400;
-font-size: 12px;
-line-height: 200%;
+font-weight: 600;
+font-size: 16px;
+line-height: 133%;
 letter-spacing: 0.04em;
 color: #2e2f42;
 display: flex;
@@ -92,7 +88,7 @@ justify-content: center;
 
 .item-span{
     font-weight: 400;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 200%;
         letter-spacing: 0.04em;
         color: #2e2f42;
@@ -103,5 +99,51 @@ justify-content: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 8px;
+}
 
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+    }
+
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+    }
 }

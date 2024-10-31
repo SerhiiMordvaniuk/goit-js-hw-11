@@ -1,16 +1,39 @@
+"use strict"
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
+
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+
 
 const form = document.querySelector(".form");
 const input = document.querySelector(".input");
 const gallery = document.querySelector(".galleri-list")
 let search = null;
 const API_KEY = "46809908-9f97c0ef37b027eaa1f813844";
-
-
+const loader = document.querySelector('.loader'); 
 
 form.addEventListener("submit", (event) => {
     event.preventDefault()
     search = input.value
-    searchImage(search)
+    if (search.trim() === "") {
+        iziToast.error({
+                message: 'Enter your query',
+                position: 'topCenter',
+                color: '#ca0000',
+                messageColor: "white",
+                close: false,
+                timeout: 1000,
+                progressBar: false,
+                iconColor: "white",
+                con: false,
+            });
+
+    }
+    else {
+        searchImage(search)
+    }
     form.reset()
 });
 
@@ -19,12 +42,28 @@ form.addEventListener("submit", (event) => {
 function searchImage(q) {
     fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${q}`)
         .then(response => {
+            loader.classList.add('show');
+
             if (!response.ok) {
             throw new Error("error")
             }
             return response.json()
         })
         .then(data => {
+            if (data.hits.length == 0) {
+                iziToast.error({
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+                position: 'center',
+                color: '#ca0000',
+                messageColor: "white",
+                close: true,
+                timeout: 2000,
+                progressBar: true,
+                iconColor: "white",
+                icon: false,
+                maxWidth: "300"
+            });
+            }
             gallery.innerHTML = createGallery(data.hits)
         })
         .catch(error => console.log(error))
