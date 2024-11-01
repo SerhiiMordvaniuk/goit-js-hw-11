@@ -7,15 +7,27 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import { createGallery } from './render-function'
 
+
 const API_KEY = "46809908-9f97c0ef37b027eaa1f813844";
 const loader = document.querySelector('.loader'); 
 const gallery = document.querySelector(".gallery-list")
 
 
-export function searchImage(q) {
+
+export function searchImage(search) {
+
+    const params = new URLSearchParams({
+    key: API_KEY,
+    q: search,
+    image_type: "photo",
+    orientation: "horizontal",
+    safesearch: true
+    })
+
     loader.classList.remove('loader-unvisible');
     gallery.innerHTML = "";
-    fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${q}`)
+
+    fetch(`https://pixabay.com/api/?${params}`)
         .then(response => {
             loader.classList.add('loader-unvisible');
             if (!response.ok) {
@@ -41,13 +53,11 @@ export function searchImage(q) {
             });
             }
             gallery.innerHTML = createGallery(data.hits)
+            
             let lightbox = new SimpleLightbox('.gallery-item a', {
                 disableScroll: false,
                 overlayOpacity: 0.9,
                 disableRightClick: true,
-
-
-
             });
         })
         .catch(error => console.log(error))
