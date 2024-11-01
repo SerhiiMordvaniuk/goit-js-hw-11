@@ -47,7 +47,7 @@
     background-color: #6c8cff;
 }
 
-.galleri-list {
+.gallery-list {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
@@ -102,6 +102,18 @@ justify-content: center;
     margin-top: 8px;
 }
 
+.loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-unvisible{
+display: none;
+}
+
+
+
 .loader {
     width: 48px;
     height: 48px;
@@ -116,7 +128,7 @@ justify-content: center;
     position: absolute;
     inset: 0px;
     border-radius: 50%;
-    border: 5px solid #FFF;
+    border: 5px solid #848282;
     animation: prixClipFix 2s linear infinite;
 }
 
