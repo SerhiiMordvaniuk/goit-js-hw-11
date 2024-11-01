@@ -41,7 +41,14 @@ export function searchImage(q) {
             });
             }
             gallery.innerHTML = createGallery(data.hits)
-            let lightbox = new SimpleLightbox('.gallery-item a');
+            let lightbox = new SimpleLightbox('.gallery-item a', {
+                disableScroll: false,
+                overlayOpacity: 0.9,
+                disableRightClick: true,
+
+
+
+            });
         })
         .catch(error => console.log(error))
     }
